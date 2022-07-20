@@ -1,4 +1,4 @@
-import { StyleSheet, Text, View } from 'react-native'
+import { StyleSheet, Text, View,  } from 'react-native'
 import React, { useState } from 'react'
 import { Input, Icon } from '@rneui/themed';
 
@@ -12,23 +12,35 @@ const Todolist = () => {
         // Mise à jour de la valeur de mon texte
         setText(textValue)
     }
-    const ajouter = (console.log("Voir les ajouts", getText))
+    const ajouter = () => {
+        console.log("Voir les ajouts", getText)
+    }
+
+    const HeaderTodo = () => {
+        return(
+            <View>
+        <Input
+        placeholder='Boudin Input la'
+        onChangeText = {textChange}
+        value={getText}
+        rightIcon={
+            <Icon
+            name='chevron-right'
+            size={30}
+            color='black'
+            onPress={ajouter}
+        />
+        }
+        
+            />
+        </View>
+        )
+    }
   return (
     <View>
-      <Input
-      placeholder='Boudin Input la'
-      onChangeText = {textChange}
-      value={getText}
-      onPress={ajouter}
-      rightIcon={
-        <Icon
-        name='chevron-right'
-        size={30}
-        color='black'
-      />
-    }
-      
-        />
+        <HeaderTodo>
+
+        </HeaderTodo>
     </View>
   )
 }
