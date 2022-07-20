@@ -1,4 +1,4 @@
-import { StyleSheet, Text, View,  } from 'react-native'
+import { StyleSheet, Text, View, FlatList } from 'react-native'
 import React, { useState } from 'react'
 import { Input, Icon } from '@rneui/themed';
 
