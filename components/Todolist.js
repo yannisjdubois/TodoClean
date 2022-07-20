@@ -1,6 +1,11 @@
-import { StyleSheet, Text, View, FlatList } from 'react-native'
+import { StyleSheet, Text, View, FlatList, SafeAreaView } from 'react-native'
 import React, { useState } from 'react'
 import { Input, Icon } from '@rneui/themed';
+
+const initTask = [
+    {id:1, tache:"Réussir"},
+    {id:2, tache:"Faire le meilleur"}
+]
 
 const Todolist = () => {
     const [getText, setText] = useState("");
@@ -36,12 +41,24 @@ const Todolist = () => {
         </View>
         )
     }
-  return (
-    <View>
-        <HeaderTodo>
 
-        </HeaderTodo>
-    </View>
+  return (
+    // <View>
+    //     <HeaderTodo/>
+    // </View>
+
+    <SafeAreaView>
+        <FlatList
+        data={initTask}
+        renderItem={
+            ({item})=><Text>{item.tache}</Text>
+        }
+        ListHeaderComponent={HeaderTodo}
+        // keyExtractor={item => item.id}
+        />
+    </SafeAreaView>
+
+
   )
 }
 
