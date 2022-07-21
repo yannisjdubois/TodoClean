@@ -4,8 +4,8 @@ import { Input, Icon, ListItem, Button } from '@rneui/themed';
 
 
 const initTask = [
-    {id:1, tache:"Réussir"},
-    {id:2, tache:"Faire le meilleur"}
+    // {id:1, tache:"Réussir"},
+    // {id:2, tache:"Faire le meilleur"}
 ]
 
 const Todolist = () => {
@@ -101,6 +101,12 @@ const Todolist = () => {
             
                 />
         }
+
+        // Message personnalisé si liste de tâche vide
+        ListEmptyComponent={() => (
+            <Text>Liste Vide</Text>
+        )}
+
         // keyExtractor={item => item.id}
         />
     </SafeAreaView>
