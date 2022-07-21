@@ -1,6 +1,7 @@
 import { StyleSheet, Text, View, FlatList, SafeAreaView } from 'react-native'
 import React, { useState } from 'react'
-import { Input, Icon, ListItem } from '@rneui/themed';
+import { Input, Icon, ListItem, Button } from '@rneui/themed';
+
 
 const initTask = [
     {id:1, tache:"Réussir"},
@@ -22,10 +23,48 @@ const Todolist = () => {
     const ajouter = () => {
         console.log("Voir les ajouts", getText)
 
-        setTask([...getTask,
+        // Quand ...getTask est en bas, le plus récent se retrouve en haut de la liste
+        setTask([
             {id:getTask.length+1,
             tache: getText
-        }])
+        },
+        ...getTask,
+    ])
+
+        // Remise à zero de mon formulaire
+        setText("")
+    }
+
+    const supprimer = (id) => {
+        console.log("Les suppressions", id)
+
+        // Variable temporaire pour filtrer tous les id différents de l'id sélectionné
+        const filterTask = getTask.filter (item => item.id != id)
+
+        // Permet la mise à niveau du filterTask
+        setTask (filterTask)
+    }
+
+    const Swipe = ({tache,id})=>{
+        return (
+                        <ListItem.Swipeable
+
+            rightContent={(reset) => (
+                <Button
+                title="Delete"
+                onPress={() => supprimer(id)}
+                icon={{ name: 'delete', color: 'white' }}
+                buttonStyle={{ minHeight: '100%', backgroundColor: 'red' }}
+                />
+            )}
+            >
+            <Icon name="chevron-left" />
+            <ListItem.Content>
+                <ListItem.Title>{tache}</ListItem.Title>
+            </ListItem.Content>
+            <ListItem.Chevron />
+            </ListItem.Swipeable>
+        )
     }
 
 
@@ -38,7 +77,13 @@ const Todolist = () => {
         <FlatList
         data={getTask}
         renderItem={
-            ({item})=><Text>{item.tache}</Text>
+            ({item}) =>
+
+            <Swipe 
+            tache={item.tache}
+            id={item.id}
+            />
+
         }
         ListHeaderComponent={
             <Input
