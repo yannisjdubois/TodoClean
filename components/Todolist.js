@@ -1,6 +1,6 @@
 import { StyleSheet, Text, View, FlatList, SafeAreaView } from 'react-native'
 import React, { useState } from 'react'
-import { Input, Icon } from '@rneui/themed';
+import { Input, Icon, ListItem } from '@rneui/themed';
 
 const initTask = [
     {id:1, tache:"Réussir"},
@@ -9,6 +9,8 @@ const initTask = [
 
 const Todolist = () => {
     const [getText, setText] = useState("");
+
+    const [getTask, setTask] = useState(initTask);
 
     // Détection des changement sur mon input
     const textChange = (textValue) => {
@@ -19,28 +21,13 @@ const Todolist = () => {
     }
     const ajouter = () => {
         console.log("Voir les ajouts", getText)
+
+        setTask([...getTask,
+            {id:getTask.length+1,
+            tache: getText
+        }])
     }
 
-    const HeaderTodo = () => {
-        return(
-            <View>
-        <Input
-        placeholder='Boudin Input la'
-        onChangeText = {textChange}
-        value={getText}
-        rightIcon={
-            <Icon
-            name='chevron-right'
-            size={30}
-            color='black'
-            onPress={ajouter}
-        />
-        }
-        
-            />
-        </View>
-        )
-    }
 
   return (
     // <View>
@@ -49,11 +36,26 @@ const Todolist = () => {
 
     <SafeAreaView>
         <FlatList
-        data={initTask}
+        data={getTask}
         renderItem={
             ({item})=><Text>{item.tache}</Text>
         }
-        ListHeaderComponent={HeaderTodo}
+        ListHeaderComponent={
+            <Input
+            placeholder='Boudin Input la'
+            onChangeText = {textChange}
+            value={getText}
+            rightIcon={
+                <Icon
+                name='chevron-right'
+                size={30}
+                color='black'
+                onPress={ajouter}
+            />
+            }
+            
+                />
+        }
         // keyExtractor={item => item.id}
         />
     </SafeAreaView>
