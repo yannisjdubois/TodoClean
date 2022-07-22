@@ -7,6 +7,7 @@ const Swipe = ({tache,id, suppCallBack})=>{
         <ListItem.Swipeable
 
         rightContent={(supprimer) => (
+            
             <Button
             title="Delete"
             onPress={() => suppCallBack(id)}
