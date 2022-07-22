@@ -1,6 +1,6 @@
 import { StyleSheet, Text, View, FlatList, SafeAreaView } from 'react-native'
 import React, { useState } from 'react'
-import { Input, Icon, ListItem, Button } from '@rneui/themed';
+import { Input, Icon, ListItem, Button, SpeedDial } from '@rneui/themed';
 import Swipe from './Swipe';
 
 
@@ -13,6 +13,7 @@ const Todolist = () => {
     const [getText, setText] = useState("");
 
     const [getTask, setTask] = useState(initTask);
+    
 
     // Détection des changement sur mon input
     const textChange = (textValue) => {
@@ -46,28 +47,9 @@ const Todolist = () => {
         setTask (filterTask)
     }
 
-    // const Swipe = ({tache,id})=>{
-    //     return (
-    //                     <ListItem.Swipeable
-
-    //         rightContent={(reset) => (
-    //             <Button
-    //             title="Delete"
-    //             onPress={() => supprimer(id)}
-    //             icon={{ name: 'delete', color: 'white' }}
-    //             buttonStyle={{ minHeight: '100%', backgroundColor: 'red' }}
-    //             />
-    //         )}
-    //         >
-    //         <Icon name="chevron-left" />
-    //         <ListItem.Content>
-    //             <ListItem.Title>{tache}</ListItem.Title>
-    //         </ListItem.Content>
-    //         <ListItem.Chevron />
-    //         </ListItem.Swipeable>
-    //     )
-    // }
-
+    
+    const [open, setOpen] = React.useState(false);
+    
 
   return (
     // <View>
@@ -111,9 +93,30 @@ const Todolist = () => {
 
         // keyExtractor={item => item.id}
         />
+
+        <SpeedDial
+                isOpen={open}
+                icon={{ name: 'edit', color: '#fff' }}
+                openIcon={{ name: 'close', color: '#fff' }}
+                onOpen={() => setOpen(!open)}
+                onClose={() => setOpen(!open)}
+                >
+                <SpeedDial.Action
+                    icon={{ name: 'add', color: '#fff' }}
+                    title="Add"
+                    onPress={() => console.log('Add Something')}
+                />
+                <SpeedDial.Action
+                    icon={{ name: 'delete', color: '#fff' }}
+                    title="Delete"
+                    onPress={() => console.log('Delete Something')}
+                />
+                </SpeedDial>
     </SafeAreaView>
 
+    
 
+        
   )
 }
 

@@ -1,6 +1,6 @@
 import { StyleSheet, Text, View } from 'react-native'
 import React from 'react'
-import { Input, Icon, ListItem, Button } from '@rneui/themed';
+import { Icon, ListItem, Button } from '@rneui/themed';
 
 const Swipe = ({tache,id, suppCallBack})=>{
     return (
