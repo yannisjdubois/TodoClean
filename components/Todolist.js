@@ -1,7 +1,8 @@
-import { StyleSheet, Text, View, FlatList, SafeAreaView } from 'react-native'
-import React, { useState } from 'react'
+import { StyleSheet, Text, View, FlatList, SafeAreaView } from 'react-native';
+import React, { useState } from 'react';
 import { Input, Icon, ListItem, Button, SpeedDial } from '@rneui/themed';
 import Swipe from './Swipe';
+import DialogInput from 'react-native-dialog-input';
 
 
 const initTask = [
@@ -22,20 +23,31 @@ const Todolist = () => {
         // Mise à jour de la valeur de mon texte
         setText(textValue)
     }
-    const ajouter = () => {
-        console.log("Voir les ajouts", getText)
+
+
+
+    const ajouter = (textValue) => {
+        
+        console.log("Voir les ajouts", textValue)
 
         // Quand ...getTask est en bas, le plus récent se retrouve en haut de la liste
         setTask([
             {id:getTask.length+1,
-            tache: getText
+            tache: textValue
         },
         ...getTask,
     ])
 
         // Remise à zero de mon formulaire
         setText("")
+
+        setOpenDialog(!openDialog)
+
+
     }
+
+
+
 
     const supprimer = (id) => {
         console.log("Les suppressions", id)
@@ -49,12 +61,12 @@ const Todolist = () => {
 
     
     const [open, setOpen] = React.useState(false);
+
+    const [openDialog, setOpenDialog] = React.useState(false);
+
     
 
   return (
-    // <View>
-    //     <HeaderTodo/>
-    // </View>
 
     <SafeAreaView>
         <FlatList
@@ -69,22 +81,7 @@ const Todolist = () => {
             />
 
         }
-        ListHeaderComponent={
-            <Input
-            placeholder='Boudin Input la'
-            onChangeText = {textChange}
-            value={getText}
-            rightIcon={
-                <Icon
-                name='chevron-right'
-                size={30}
-                color='black'
-                onPress={ajouter}
-            />
-            }
-            
-                />
-        }
+
 
         // Message personnalisé si liste de tâche vide
         // ListEmptyComponent={() => (
@@ -94,24 +91,30 @@ const Todolist = () => {
         // keyExtractor={item => item.id}
         />
 
+        <DialogInput isDialogVisible={openDialog}
+            title={"DialogInput 1"}
+            message={"Message for DialogInput #1"}
+            hintInput ={"HINT INPUT"}
+            submitInput={ (inputText) => {ajouter(inputText)} }
+            closeDialog={ () => {setOpenDialog(!openDialog)}}>
+        </DialogInput>
+
         <SpeedDial
                 isOpen={open}
                 icon={{ name: 'edit', color: '#fff' }}
                 openIcon={{ name: 'close', color: '#fff' }}
-                onOpen={() => setOpen(!open)}
-                onClose={() => setOpen(!open)}
+                onOpen={() => setOpenDialog(!openDialog)}
+                onClose={() => setOpenDialog(!openDialog)}
+                style={{height:750}}
                 >
-                <SpeedDial.Action
-                    icon={{ name: 'add', color: '#fff' }}
-                    title="Add"
-                    onPress={() => console.log('Add Something')}
-                />
-                <SpeedDial.Action
-                    icon={{ name: 'delete', color: '#fff' }}
-                    title="Delete"
-                    onPress={() => console.log('Delete Something')}
-                />
-                </SpeedDial>
+        <SpeedDial.Action
+        icon={{ name: 'add', color: '#fff' }}
+        title="Add"
+        onPress={() => setOpenDialog(!openDialog)}
+        />
+            
+        </SpeedDial>
+
     </SafeAreaView>
 
     
