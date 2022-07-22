@@ -1,6 +1,7 @@
 import { StyleSheet, Text, View, FlatList, SafeAreaView } from 'react-native'
 import React, { useState } from 'react'
 import { Input, Icon, ListItem, Button } from '@rneui/themed';
+import Swipe from './Swipe';
 
 
 const initTask = [
@@ -45,27 +46,27 @@ const Todolist = () => {
         setTask (filterTask)
     }
 
-    const Swipe = ({tache,id})=>{
-        return (
-                        <ListItem.Swipeable
+    // const Swipe = ({tache,id})=>{
+    //     return (
+    //                     <ListItem.Swipeable
 
-            rightContent={(reset) => (
-                <Button
-                title="Delete"
-                onPress={() => supprimer(id)}
-                icon={{ name: 'delete', color: 'white' }}
-                buttonStyle={{ minHeight: '100%', backgroundColor: 'red' }}
-                />
-            )}
-            >
-            <Icon name="chevron-left" />
-            <ListItem.Content>
-                <ListItem.Title>{tache}</ListItem.Title>
-            </ListItem.Content>
-            <ListItem.Chevron />
-            </ListItem.Swipeable>
-        )
-    }
+    //         rightContent={(reset) => (
+    //             <Button
+    //             title="Delete"
+    //             onPress={() => supprimer(id)}
+    //             icon={{ name: 'delete', color: 'white' }}
+    //             buttonStyle={{ minHeight: '100%', backgroundColor: 'red' }}
+    //             />
+    //         )}
+    //         >
+    //         <Icon name="chevron-left" />
+    //         <ListItem.Content>
+    //             <ListItem.Title>{tache}</ListItem.Title>
+    //         </ListItem.Content>
+    //         <ListItem.Chevron />
+    //         </ListItem.Swipeable>
+    //     )
+    // }
 
 
   return (
@@ -82,6 +83,7 @@ const Todolist = () => {
             <Swipe 
             tache={item.tache}
             id={item.id}
+            suppCallBack = {supprimer}
             />
 
         }
